@@ -38,7 +38,6 @@ function clearResults() {
 
 //event listeners for search icon click or enter key press
 searchIcon.addEventListener('click', () => {
-  console.log('search clicked!! input value is', input.value);
   if (input.value === '') {
     alert(`Please enter artist's name`);
   } else {
@@ -58,7 +57,6 @@ input.addEventListener('keypress', (e) => {
       albumsContainer.innerHTML = '';
       fetchAlbums(input.value);
     }
-    console.log('enter pressed', input.value);
     input.value = '';
   }
 });
