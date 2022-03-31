@@ -9,6 +9,7 @@ const count = document.querySelector('.count');
 const loadingDiv = document.querySelector(
   '.search-header__loading-animation-div'
 );
+const showMore = document.querySelector('.show-more');
 
 function fetchAlbums(ARTIST_NAME) {
   loadingDiv.style.display = 'block';
@@ -21,14 +22,42 @@ function fetchAlbums(ARTIST_NAME) {
       console.log(data);
       console.log(data.results);
 
-      data.results.forEach((albumItem) => {
-        renderAlbum(albumItem);
+      const results = [];
+      data.results.forEach((item) => {
+        results.push(item);
+      });
+      console.log('results', results);
+      // show 20 data first
+      // on show more show next 20 data
+
+      // data.results.forEach((albumItem) => {
+      //   renderAlbum(albumItem);
+      // });
+
+      // show items from index 0 - 19
+      let index1 = 0;
+      let index2 = 20;
+
+      showTwentyItems(index1, index2, results);
+
+      showMore.addEventListener('click', () => {
+        // show next 20 items from data.results
+        index1 = index1 + 20;
+        index2 = index2 + 20;
+        console.log(index1, index2);
+        showTwentyItems(index1, index2, results);
       });
 
       loadingDiv.style.display = 'none';
       searchResultsDisplay.style.display = 'block';
       count.innerText = data.resultCount;
     });
+}
+
+function showTwentyItems(index1, index2, results) {
+  for (let i = index1; i < index2; i++) {
+    renderAlbum(results[i]);
+  }
 }
 
 function clearResults() {
